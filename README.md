@@ -3,7 +3,7 @@
 
 ## 概述
 
-![avatar](./src/main/resources/static/6898826-f91eddedaa117489.webp)
+![avatar](seckill-service-system/src/main/resources/static/images/seckill.png)
 
 ### 限流
 
@@ -25,6 +25,7 @@
 
 ## 技术选型
 
+[JWT]()
 [Nginx]()  
 [Redis]()  
 [Kafka]()  
