@@ -38,7 +38,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
             //加了ApiOperation注解的类，才生成接口文档
             .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
             //包下的类，才生成接口文档
-            //.apis(RequestHandlerSelectors.basePackage("io.renren.controller"))
+            .apis(RequestHandlerSelectors.basePackage("com.seckill.seckillservicesystem.controller"))
             .paths(PathSelectors.any())
             .build()
             .securitySchemes(security());
@@ -46,8 +46,8 @@ public class SwaggerConfig implements WebMvcConfigurer {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-            .title("人员管理")
-            .description("innovate-admin文档")
+            .title("秒杀系统设计与实现")
+            .description("seckill文档")
             .termsOfServiceUrl("http://")
             .version("1.0.0")
             .build();

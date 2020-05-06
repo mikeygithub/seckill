@@ -1,19 +1,17 @@
 package com.seckill.seckillservicesystem.oauth2;
 
 
+import com.seckill.seckillservicesystem.exception.RRException;
+
 import java.security.MessageDigest;
 import java.util.UUID;
 
 /**
  * 生成token
- *
- * @author chenshun
- * @email sunlightcs@gmail.com
- * @date 2017-05-20 14:41
  */
 public class TokenGenerator {
 
-    public static String generateValue() throws Exception {
+    public static String generateValue() {
         return generateValue(UUID.randomUUID().toString());
     }
 
@@ -31,7 +29,7 @@ public class TokenGenerator {
         return r.toString();
     }
 
-    public static String generateValue(String param) throws Exception {
+    public static String generateValue(String param) {
         try {
             MessageDigest algorithm = MessageDigest.getInstance("MD5");
             algorithm.reset();
@@ -39,7 +37,11 @@ public class TokenGenerator {
             byte[] messageDigest = algorithm.digest();
             return toHexString(messageDigest);
         } catch (Exception e) {
-            throw new Exception("生成Token失败", e);
+            throw new RRException("生成Token失败", e);
         }
+    }
+
+    public static void main(String[] args) throws Exception {
+        System.out.println(generateValue());
     }
 }

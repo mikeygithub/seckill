@@ -1,7 +1,7 @@
 package com.seckill.seckillservicesystem.config;
 
-import com.innovate.modules.sys.oauth2.OAuth2Filter;
-import com.innovate.modules.sys.oauth2.OAuth2Realm;
+import com.seckill.seckillservicesystem.oauth2.OAuth2Filter;
+import com.seckill.seckillservicesystem.oauth2.OAuth2Realm;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
@@ -56,28 +56,13 @@ public class ShiroConfig {
         shiroFilter.setFilters(filters);
 
         Map<String, String> filterMap = new LinkedHashMap<>();
-        filterMap.put("/webjars/**", "anon");
-        filterMap.put("/innovate/sys/institute/all", "anon");
-        filterMap.put("/innovate/sys/grade/all", "anon");
-        filterMap.put("/innovate/sys/school/all", "anon");
-        filterMap.put("/innovate/sys/subject/all", "anon");
-        filterMap.put("/innovate/sys/title/all", "anon");
-        filterMap.put("/innovate/match/event/all", "anon");
-        filterMap.put("/innovate/use/teacher/all", "anon");
-        filterMap.put("/common/file/**", "anon");
-        filterMap.put("/druid/**", "anon");
-        filterMap.put("/app/**", "anon");
         filterMap.put("/sys/login", "anon");
         filterMap.put("/sys/register", "anon");
-        filterMap.put("/sys/message", "anon");
         filterMap.put("/swagger/**", "anon");
-        filterMap.put("/v2/api-docs", "anon");
         filterMap.put("/swagger-ui.html", "anon");
         filterMap.put("/swagger-resources/**", "anon");
         filterMap.put("/captcha.jpg", "anon");
-        filterMap.put("/enterprise/**", "anon");
         // 前端游客方式请求数据放行
-        filterMap.put("/webpage/**", "anon");
         filterMap.put("/**", "oauth2");
         shiroFilter.setFilterChainDefinitionMap(filterMap);
 

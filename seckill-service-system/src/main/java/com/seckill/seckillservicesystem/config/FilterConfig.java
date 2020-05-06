@@ -1,6 +1,6 @@
 package com.seckill.seckillservicesystem.config;
 
-import com.innovate.common.xss.XssFilter;
+import com.seckill.seckillservicesystem.xss.XssFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,10 +10,6 @@ import javax.servlet.DispatcherType;
 
 /**
  * Filter配置
- *
- * @author chenshun
- * @email sunlightcs@gmail.com
- * @date 2017-04-21 21:56
  */
 @Configuration
 public class FilterConfig {

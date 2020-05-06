@@ -1,10 +1,9 @@
 package com.seckill.seckillservicesystem.oauth2;
 
 import com.google.gson.Gson;
-import com.innovate.common.utils.HttpContextUtils;
-import com.innovate.common.utils.R;
+import com.seckill.seckillservicesystem.utils.HttpContextUtils;
+import com.seckill.seckillservicesystem.utils.R;
 import org.apache.commons.lang.StringUtils;
-import org.apache.http.HttpStatus;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.web.filter.authc.AuthenticatingFilter;
@@ -15,6 +14,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import org.apache.http.HttpStatus;
 
 /**
  * oauth2过滤器
