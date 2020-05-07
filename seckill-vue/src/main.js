@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
+import VueCookie from 'vue-cookie'            // api: https://github.com/alfhen/vue-cookie
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 //http
@@ -11,6 +12,7 @@ Vue.prototype.$httpFile = httpFile // ajax请求方法
 // 一些默认的参数
 
 Vue.use(ElementUI);
+Vue.use(VueCookie);
 Vue.config.productionTip = false
 
 //example

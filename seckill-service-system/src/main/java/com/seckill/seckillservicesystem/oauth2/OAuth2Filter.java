@@ -14,21 +14,20 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
 import org.apache.http.HttpStatus;
 
 /**
  * oauth2过滤器
- *
  */
 public class OAuth2Filter extends AuthenticatingFilter {
 
     @Override
     protected AuthenticationToken createToken(ServletRequest request, ServletResponse response) throws Exception {
-//        System.out.println("createToken(ServletRequest request, ServletResponse response)");
         //获取请求token
         String token = getRequestToken((HttpServletRequest) request);
 
-        if(StringUtils.isBlank(token)){
+        if (StringUtils.isBlank(token)) {
             return null;
         }
 
@@ -37,8 +36,8 @@ public class OAuth2Filter extends AuthenticatingFilter {
 
     @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
-//        System.out.println("isAccessAllowed");
-        if(((HttpServletRequest) request).getMethod().equals(RequestMethod.OPTIONS.name())){
+
+        if (((HttpServletRequest) request).getMethod().equals(RequestMethod.OPTIONS.name())) {
             return true;
         }
 
@@ -47,16 +46,15 @@ public class OAuth2Filter extends AuthenticatingFilter {
 
     @Override
     protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
-//        System.out.println("onAccessDenied");
         //获取请求token，如果token不存在，直接返回401
         String token = getRequestToken((HttpServletRequest) request);
-//        System.out.println("tonken" + token);
-        if(StringUtils.isBlank(token)){
+
+        if (StringUtils.isBlank(token)) {
             HttpServletResponse httpResponse = (HttpServletResponse) response;
             httpResponse.setHeader("Access-Control-Allow-Credentials", "true");
             httpResponse.setHeader("Access-Control-Allow-Origin", HttpContextUtils.getOrigin());
 
-            String json = new Gson().toJson(R.error(HttpStatus.SC_UNAUTHORIZED, "invalid token"));
+            String json = new Gson().toJson(R.error(HttpStatus.SC_UNAUTHORIZED, "token 缺失"));
 
             httpResponse.getWriter().print(json);
 
@@ -68,7 +66,7 @@ public class OAuth2Filter extends AuthenticatingFilter {
 
     @Override
     protected boolean onLoginFailure(AuthenticationToken token, AuthenticationException e, ServletRequest request, ServletResponse response) {
-//        System.out.println("onLoginFailure");
+
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         httpResponse.setContentType("application/json;charset=utf-8");
         httpResponse.setHeader("Access-Control-Allow-Credentials", "true");
@@ -90,12 +88,12 @@ public class OAuth2Filter extends AuthenticatingFilter {
     /**
      * 获取请求的token
      */
-    private String getRequestToken(HttpServletRequest httpRequest){
+    private String getRequestToken(HttpServletRequest httpRequest) {
         //从header中获取token
         String token = httpRequest.getHeader("token");
 
         //如果header中不存在token，则从参数中获取token
-        if(StringUtils.isBlank(token)){
+        if (StringUtils.isBlank(token)) {
             token = httpRequest.getParameter("token");
         }
 

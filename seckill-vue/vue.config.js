@@ -1,4 +1,5 @@
 module.exports = {
+    publicPath: process.env.NODE_ENV === 'production' ? '/production-sub-path/' : '/',
     devServer:{                //记住，别写错了devServer
         open:true,
         host:'localhost',        //设置本地服务器   选填

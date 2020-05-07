@@ -1,8 +1,11 @@
 package com.seckill.seckillservicesystem.oauth2;
 
+import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
 import com.seckill.seckillservicesystem.entity.SysUserEntity;
 import com.seckill.seckillservicesystem.entity.SysUserTokenEntity;
 import com.seckill.seckillservicesystem.service.ShiroService;
+import io.jsonwebtoken.Claims;
+import org.apache.http.HttpStatus;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -24,6 +27,8 @@ import java.util.Set;
 public class OAuth2Realm extends AuthorizingRealm {
     @Autowired
     private ShiroService shiroService;
+    @Autowired
+    private TokenUtils tokenUtils;
 
     @Override
     public boolean supports(AuthenticationToken token) {
@@ -36,7 +41,6 @@ public class OAuth2Realm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-//        System.out.println("doGetAuthorizationInfo(PrincipalCollection principals)");
         SysUserEntity user = (SysUserEntity)principals.getPrimaryPrincipal();
         Long userId = user.getUserId();
 
@@ -52,20 +56,20 @@ public class OAuth2Realm extends AuthorizingRealm {
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-//        System.out.println("doGetAuthenticationInfo(AuthenticationToken token)");
+
         String accessToken = (String) token.getPrincipal();
 
-        //根据accessToken，查询用户信息
-        SysUserTokenEntity tokenEntity = shiroService.queryByToken(accessToken);
-        //token失效
-        if(tokenEntity == null || tokenEntity.getExpireTime().getTime() < System.currentTimeMillis()){
-            throw new IncorrectCredentialsException("token失效，请重新登录");
+        Claims claims = tokenUtils.parseToken(accessToken);
+
+        if (ObjectUtils.isNull(claims) || tokenUtils.isTokenExpired(claims.getExpiration())) {
+            throw new IncorrectCredentialsException(tokenUtils.getHeader()+"token过期");
         }
 
         //查询用户信息
-        SysUserEntity user = shiroService.queryUser(tokenEntity.getUserId());
+        SysUserEntity user = shiroService.queryUser(Long.parseLong(claims.getSubject()));
 
         SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user, accessToken, getName());
+
         return info;
     }
 }

@@ -3,6 +3,15 @@ import axios from 'axios'
 import router from '@/router/router'
 import qs from 'qs'
 import merge from 'lodash/merge'
+import store from '@/store'
+
+window.SITE_CONFIG = {};
+// api接口请求地址
+window.SITE_CONFIG['baseUrl'] = 'http://localhost:8004/';
+// cdn地址 = 域名 + 版本号
+window.SITE_CONFIG['domain']  = './'; // 域名
+window.SITE_CONFIG['version'] = '';   // 版本号(年月日时分)
+window.SITE_CONFIG['cdnUrl']  = window.SITE_CONFIG.domain + window.SITE_CONFIG.version;
 
 const http = axios.create({
   timeout: 10000 * 600,
@@ -28,8 +37,8 @@ http.interceptors.request.use(config => {
 http.interceptors.response.use(response => {
   if (response.data && response.data.code === 401) { // 401, token失效
     console.log('token失效')
-    // clearLoginInfo()
-    router.push({ name: 'login' })
+    clearLoginInfo()
+    router.push('/login')
   }
   return response
 }, error => {
@@ -52,7 +61,7 @@ http.adornUrl = (actionName) => {
  */
 http.adornParams = (params = {}, openDefultParams = true) => {
   var defaults = {
-    't': new Date().getTime()
+    'time': new Date().getTime()
   }
   return openDefultParams ? merge(defaults, params) : params
 }
@@ -133,5 +142,15 @@ httpFile.adornData = (data = {}, openDefultdata = true, contentType = 'json') =>
   data = openDefultdata ? merge(defaults, data) : data
   return contentType === 'json' ? JSON.stringify(data) : qs.stringify(data)
 }
+
+/**
+ * 清除登录信息
+ */
+export function clearLoginInfo () {
+  Vue.cookie.delete('token')
+  store.commit('resetStore')
+  router.options.isAddDynamicMenuRoutes = false
+}
+
 
 export {http, httpFile}
