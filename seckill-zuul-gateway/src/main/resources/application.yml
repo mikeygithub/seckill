@@ -1,3 +1,38 @@
-management:
-  server:
-    port: 8006
+server:
+  port: 8006
+#app
+spring:
+  application:
+    name: seckill-zuul-gateway
+#注册中心
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8001/eureka
+  instance:
+    instance-id: 127.0.0.1
+    prefer-ip-address: true
+#相关信息
+info:
+  app.name: seckill-zuul-gateway
+  company.name: www.seckill.com
+  build.artifactId: $project.artifactId$
+  build.version: $project.version$
+#网关路由
+zuul:
+  prefix: /mikey
+  ignored-services: "*"
+  routes:
+    mydept.serviceId: microservicecloud-dept
+    mydept.path: /mydept/**
+  sensitive-headers:
+  add-host-header: true
+  ignored-patterns: /sys/login,/sys/register
+#jwt配置
+secktll:
+  jwt:
+    # 加密秘钥
+    secret: f4e2e52034348f86b67cde581c0f9eb5
+    # token有效时长，7天，单位秒
+    expire: 604800
+    header: authorization

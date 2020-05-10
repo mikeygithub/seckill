@@ -8,6 +8,7 @@ import store from '@/store'
 window.SITE_CONFIG = {};
 // api接口请求地址
 window.SITE_CONFIG['baseUrl'] = 'http://localhost:8004/';
+window.SITE_CONFIG['secKillUrl'] = 'http://localhost:8003/';
 // cdn地址 = 域名 + 版本号
 window.SITE_CONFIG['domain']  = './'; // 域名
 window.SITE_CONFIG['version'] = '';   // 版本号(年月日时分)
@@ -54,6 +55,10 @@ http.adornUrl = (actionName) => {
   return (process.env.NODE_ENV !== 'production' && process.env.OPEN_PROXY ? '/proxyApi/' : window.SITE_CONFIG.baseUrl) + actionName
 }
 
+http.adornSecKillUrl = (actionName) => {
+  // 非生产环境 && 开启代理, 接口前缀统一使用[/proxyApi/]前缀做代理拦截!
+  return (process.env.NODE_ENV !== 'production' && process.env.OPEN_PROXY ? '/proxyApi/' : window.SITE_CONFIG.secKillUrl) + actionName
+}
 /**
  * get请求参数处理
  * @param {*} params 参数对象
@@ -76,7 +81,7 @@ http.adornParams = (params = {}, openDefultParams = true) => {
  */
 http.adornData = (data = {}, openDefultdata = true, contentType = 'json') => {
   var defaults = {
-    't': new Date().getTime()
+    'time': new Date().getTime()
   }
   data = openDefultdata ? merge(defaults, data) : data
   return contentType === 'json' ? JSON.stringify(data) : qs.stringify(data)

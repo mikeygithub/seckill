@@ -1,0 +1,15 @@
+package com.seckill.seckillconfigeurekaclient;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+
+@SpringBootApplication
+@EnableEurekaClient
+public class SeckillConfigEurekaClientApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(SeckillConfigEurekaClientApplication.class, args);
+    }
+
+}
