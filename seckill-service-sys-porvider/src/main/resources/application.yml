@@ -1,0 +1,36 @@
+spring:
+  profiles:
+    active:
+      - dev
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://127.0.0.1:3306/seckill_system?characterEncoding=UTF-8
+    driver-class-name: com.mysql.jdbc.Driver
+logging:
+  level:
+    com:
+      example:
+        mapper : debug
+---
+server:
+  port: 8401
+spring:
+  profiles: dev
+  application:
+    name: seckill-service-sys-porvider
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka/
+---
+server:
+  port: 8402
+spring:
+  profiles: test
+  application:
+    name: seckill-service-sys-porvider
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka/

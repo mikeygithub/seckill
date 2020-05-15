@@ -8,6 +8,11 @@
         <version>2.2.7.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+<!--    <parent>-->
+<!--        <groupId>com.mikey</groupId>-->
+<!--        <artifactId>seckill</artifactId>-->
+<!--        <version>0.0.1-SNAPSHOT</version>-->
+<!--    </parent>-->
     <groupId>com.seckill</groupId>
     <artifactId>seckill-config-client</artifactId>
     <version>0.0.1-SNAPSHOT</version>
@@ -35,6 +40,10 @@
                     <artifactId>junit-vintage-engine</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
     </dependencies>
 

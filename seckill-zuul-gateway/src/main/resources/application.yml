@@ -1,33 +1,39 @@
+#server
 server:
-  port: 8006
-#app
+  port: 9527
+#spring
 spring:
   application:
     name: seckill-zuul-gateway
-#注册中心
+#eureka
 eureka:
   client:
     service-url:
-      defaultZone: http://127.0.0.1:8001/eureka
+      defaultZone: http://127.0.0.1:8761/eureka
   instance:
-    instance-id: 127.0.0.1
+    instance-id: seckill-zuul-gateway
     prefer-ip-address: true
-#相关信息
-info:
-  app.name: seckill-zuul-gateway
-  company.name: www.seckill.com
-  build.artifactId: $project.artifactId$
-  build.version: $project.version$
-#网关路由
+##info
+#info:
+#  app.name: seckill-zuul-gateway
+#  company.name: www.seckill.com
+#  build.artifactId: $project.artifactId$
+#  build.version: $project.version$
+#zuul
 zuul:
-  prefix: /mikey
   ignored-services: "*"
   routes:
-    mydept.serviceId: microservicecloud-dept
-    mydept.path: /mydept/**
-  sensitive-headers:
-  add-host-header: true
-  ignored-patterns: /sys/login,/sys/register
+    seckill-service-sys-porvider:
+      path: /sys/**
+    seckill-service-kill-porvider:
+      path: /kill/**
+    seckill-service-admin:
+      path: /admin/**
+management:
+  endpoints:
+    web:
+      exposure:
+        include: 'routes'
 #jwt配置
 secktll:
   jwt:

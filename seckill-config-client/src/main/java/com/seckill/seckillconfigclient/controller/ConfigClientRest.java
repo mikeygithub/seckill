@@ -1,5 +1,4 @@
-package com.mikey.springcloud.rest;
-//package com.mikey.springcloud.rest;
+package com.seckill.seckillconfigclient.controller;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;

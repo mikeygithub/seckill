@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.seckill</groupId>
-    <artifactId>seckill-eureka</artifactId>
+    <artifactId>seckill-eureka-server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>seckill-eureka</name>
+    <name>seckill-eureka-server</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -58,5 +58,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

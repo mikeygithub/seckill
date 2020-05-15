@@ -5,11 +5,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.config.server.EnableConfigServer;
 
 @SpringBootApplication
-//@EnableConfigServer
-public class SeckillConfigApplication {
+@EnableConfigServer
+public class SeckillConfigServerApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SeckillConfigApplication.class, args);
+        SpringApplication.run(SeckillConfigServerApplication.class, args);
     }
 
 }
